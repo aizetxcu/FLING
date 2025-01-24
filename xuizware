@@ -1,1 +1,185 @@
---fixing
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+OrionLib:MakeNotification({
+    Name = "xuizware",
+    Content = "Loaded",
+    Image = "rbxassetid://4483345998",
+    Time = 5
+})
+
+local Window = OrionLib:MakeWindow({Name = "xuizware", HidePremium = false, SaveConfig = true, ConfigFolder = "Orion"})
+
+-- Player Tab --
+local PlayerTab = Window:MakeTab({
+    Name = "Player",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local PlayerSection = PlayerTab:AddSection({
+    Name = "Player"
+})
+
+PlayerSection:AddSlider({
+    Name = "Walkspeed",
+    Min = 16,
+    Max = 100,
+    Default = 16,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "Walkspeed",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+    end    
+})
+
+-- Adding FOV Slider
+PlayerSection:AddSlider({
+    Name = "FOV",
+    Min = 70,
+    Max = 120,
+    Default = 70,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "FOV",
+    Callback = function(Value)
+        game.Workspace.CurrentCamera.FieldOfView = Value
+    end    
+})
+
+-- AimLock Tab
+local AimLockTab = Window:MakeTab({
+    Name = "AimLock",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local AimLockSection = AimLockTab:AddSection({
+    Name = "AimLock"
+})
+
+AimLockSection:AddButton({
+    Name = "AimLock",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "AimLock",
+            Content = "Soon",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+    end
+})
+
+-- Settings Tab --
+local SettingsTab = Window:MakeTab({
+    Name = "Settings",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+SettingsTab:AddButton({
+    Name = "Destroy UI",
+    Callback = function()
+        OrionLib:Destroy()
+    end    
+})
+
+-- Teleport Tab --
+local TP = Window:MakeTab({
+    Name = "Teleport",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+TP:AddButton({
+    Name = "Red House",
+    Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(539.111206, 123.338608, -93.0831833)
+    end
+})
+
+TP:AddButton({
+    Name = "Blue House",
+    Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(498.837677, 83.3367767, -352.50473, 0.473562777, 3.18063229e-08, -0.880760074, -5.71838328e-08, 1, 5.3660334e-09, 0.880760074, 4.78240842e-08, 0.473562777)
+    end
+})
+
+TP:AddButton({
+    Name = "Pink House",
+    Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(-488.911774, -7.35040474, -152.029175, 0.307547748, 4.85916587e-08, 0.951532662, -2.26218493e-08, 1, -4.37550511e-08, -0.951532662, -8.06866129e-09, 0.307547748)
+    end
+})
+
+TP:AddButton({
+    Name = "Green House",
+    Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(-542.002869, -7.35040379, 76.2946777, -0.343974262, -2.73732703e-09, 0.938979089, 5.63779849e-08, 1, 2.35680453e-08, -0.938979089, 6.10445454e-08, -0.343974262)
+    end
+})
+
+TP:AddButton({
+    Name = "Purple House",
+    Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(274.35675, -7.35040474, 454.449524, -0.840439498, -2.29838726e-08, -0.541905403, -2.20974457e-08, 1, -8.14220869e-09, 0.541905403, 5.13169107e-09, -0.840439498)
+    end
+})
+
+-- Server Stats Tab --
+local ServerStatsTab = Window:MakeTab({
+    Name = "Server Stats",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local ServerStatsSection = ServerStatsTab:AddSection({
+    Name = "Server Stats"
+})
+
+-- Функция для обновления информации о сервере
+local function updateServerStats()
+    -- Получаем информацию о сервере
+    local players = game:GetService("Players")
+    local numPlayers = #players:GetPlayers()
+    local ping = players:GetPing()
+    local region = game:GetService("LocalizationService"):GetRegion()
+
+    -- Обновляем текст в элементах интерфейса
+    PlayersLabel.Text = "Players: " .. numPlayers
+    PingLabel.Text = "Ping: " .. ping
+    RegionLabel.Text = "Region: " .. region
+end
+
+-- Добавляем метки для отображения информации
+local PlayersLabel = ServerStatsSection:AddLabel({
+    Text = "Players: ",
+})
+
+local PingLabel = ServerStatsSection:AddLabel({
+    Text = "Ping: ",
+})
+
+local RegionLabel = ServerStatsSection:AddLabel({
+    Text = "Region: ",
+})
+
+-- Вызываем функцию обновления информации о сервере при загрузке и при изменении состояния игроков
+updateServerStats()
+game:GetService("Players").PlayerAdded:Connect(updateServerStats)
+game:GetService("Players").PlayerRemoving:Connect(updateServerStats)
